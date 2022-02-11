@@ -6,11 +6,11 @@ let requestData = async function requestData() {
       mode: "cors",
     });
     response = await response.json();
-    response = response.data;
+    response = response.data.children;
     for (let submission of response) {
-      if (submission.link_flair_text == flair) {
-        submission.postedDate = new Date(1000 * submission.created_utc);
-        responseArray.push(submission);
+      if (submission.data.link_flair_text == flair) {
+        submission.data.postedDate = new Date(1000 * submission.data.created_utc);
+        responseArray.push(submission.data);
       }
     }
   };
@@ -32,11 +32,11 @@ let requestData = async function requestData() {
 
   Promise.all([
     await getSubmission(
-      "https://api.pushshift.io/reddit/search/submission/?q='Application%20Timeline'&subreddit=DACA&after=365d&limit=100&title&sort=desc&sort_type=created_utc",
+      "https://old.reddit.com/r/DACA/search/.json?q=flair%3AApplication%20Timeline&sort=new&restrict_sr=on&limit=100",
       "Application Timeline"
     ),
     await getSubmission(
-      "https://api.pushshift.io/reddit/search/submission/?q='Advanced%20Parole'&subreddit=DACA&after=365d&limit=100&title&sort=desc&sort_type=created_utc",
+      "https://old.reddit.com/r/DACA/search/.json?q=flair%3AAdvanced%20Parole&sort=new&restrict_sr=on&limit=100",
       "Advanced Parole"
     ),
 
@@ -44,7 +44,6 @@ let requestData = async function requestData() {
       "https://api.pushshift.io/reddit/search/comment/?q=approved&subreddit=DACA&after=365d&limit=100&sort=desc&sort_type=created_utc"
     ),
   ]);
-
   return responseArray;
 };
 
