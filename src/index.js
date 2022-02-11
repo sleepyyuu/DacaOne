@@ -1,3 +1,3 @@
 import { requestData } from "./modules/apiHandler.js";
-import { sortSubmissions } from "./modules/apiProcessor.js";
-sortSubmissions();
+import { processSubmissions } from "./modules/apiProcessor.js";
+processSubmissions();
