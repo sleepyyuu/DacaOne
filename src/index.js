@@ -4,5 +4,6 @@ import { displayList } from "./modules/displayHandler.js";
 let displayInfo = async function () {
   let submissionArray = await processSubmissions();
   console.log(submissionArray);
+  displayList(submissionArray);
 };
 displayInfo();

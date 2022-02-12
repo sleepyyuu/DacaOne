@@ -22,16 +22,14 @@ let createSubmissionObject = (submissionData) => {
 
 let processSubmissions = async () => {
   let checkAdvancedParoleKeyWords = (submission) => {
-    let submissionFlair = submission.link_flair_text;
-    let submissionTitle = submission.title.toLowerCase();
-    let submissionText = submission.selftext.toLowerCase();
+    submission.title = submission.title.toLowerCase();
+    submission.selftext = submission.selftext.toLowerCase();
     let advancedParoleKeywords = ["advanced", "advanced parole"];
     for (let keyword of advancedParoleKeywords) {
-      //flair is either advanced parole or application timeline
-      if (submissionFlair == "Advanced Parole") {
+      if (submission.link_flair_text == "Advanced Parole") {
         return true;
       } else {
-        if (submissionTitle.includes(keyword) || submissionText.includes(keyword)) {
+        if (submission.title.includes(keyword) || submission.selftext.includes(keyword)) {
           return true;
         }
       }
@@ -46,10 +44,11 @@ let processSubmissions = async () => {
       "sent",
       "mailed",
       "received",
-      "sent",
+      "send",
       "submitted",
       "accepted",
       "submit",
+      "receipt",
     ];
     for (let keyword of applicationStartWordBank) {
       let keywordIndex = submissionObject.text.indexOf(keyword);
@@ -66,15 +65,20 @@ let processSubmissions = async () => {
         let chronoPostResult = chrono.strict.parse(postKeywordSlice, submissionObject.submissionData.postedDate);
         let dateToUse;
         if (chronoPreResult.length != 0 && chronoPostResult.length != 0) {
+          chronoPreResult = [chronoPreResult[chronoPreResult.length - 1]];
           //check if there is a \n or . between keyword and date
           let usePreDate = true;
-          for (let beginningIndex = chronoPreResult[0].index; beginningIndex < keywordIndex; beginningIndex++) {
+          for (
+            let beginningIndex = chronoPreResult[0].index;
+            beginningIndex < preKeywordSlice.length;
+            beginningIndex++
+          ) {
             if (preKeywordSlice[beginningIndex] == "\n" || preKeywordSlice[beginningIndex] == ".") {
               usePreDate = false;
             }
           }
           let usePostDate = true;
-          for (let beginningIndex = keywordIndex; beginningIndex < chronoPostResult[0].index; beginningIndex++) {
+          for (let beginningIndex = 0; beginningIndex < chronoPostResult[0].index; beginningIndex++) {
             if (postKeywordSlice[beginningIndex] == "\n" || postKeywordSlice[beginningIndex] == ".") {
               usePostDate = false;
             }
@@ -93,23 +97,40 @@ let processSubmissions = async () => {
           } else {
             continue;
           }
-        } else if (chronoPreResult.length == 0 && chronoPostResult.length == 0) {
-          continue;
-        } else if (chronoPreResult.length != 0) {
-          dateToUse = chronoPreResult;
+          if (dateToUse[0].index - keywordIndex > 25) {
+            continue;
+          }
           if (submissionObject.initialIndex == -1) {
             submissionObject.initialIndex = keywordIndex;
             submissionObject.initialDate = dateToUse[0].start.date();
-          } else if (submissionObject.initialIndex > keywordIndex && !dateToUse[0].index - keywordIndex > 25) {
+          } else if (submissionObject.initialIndex > keywordIndex) {
+            submissionObject.initialIndex = keywordIndex;
+            submissionObject.initialDate = dateToUse[0].start.date();
+          }
+        } else if (chronoPreResult.length == 0 && chronoPostResult.length == 0) {
+          continue;
+        } else if (chronoPreResult.length != 0) {
+          chronoPreResult = [chronoPreResult[chronoPreResult.length - 1]];
+          dateToUse = chronoPreResult;
+          if (dateToUse[0].index - keywordIndex > 25) {
+            continue;
+          }
+          if (submissionObject.initialIndex == -1) {
+            submissionObject.initialIndex = keywordIndex;
+            submissionObject.initialDate = dateToUse[0].start.date();
+          } else if (submissionObject.initialIndex > keywordIndex) {
             submissionObject.initialIndex = keywordIndex;
             submissionObject.initialDate = dateToUse[0].start.date();
           }
         } else if (chronoPostResult.length != 0) {
           dateToUse = chronoPostResult;
+          if (dateToUse[0].index - keywordIndex > 25) {
+            continue;
+          }
           if (submissionObject.initialIndex == -1) {
             submissionObject.initialIndex = keywordIndex;
             submissionObject.initialDate = dateToUse[0].start.date();
-          } else if (submissionObject.initialIndex > keywordIndex && dateToUse[0].index - keywordIndex > 25) {
+          } else if (submissionObject.initialIndex > keywordIndex) {
             submissionObject.initialIndex = keywordIndex;
             submissionObject.initialDate = dateToUse[0].start.date();
           }
@@ -124,7 +145,7 @@ let processSubmissions = async () => {
   };
 
   let extractCompletionDate = (submissionObject) => {
-    let applicationEndWordBank = ["approved", "approval", "processed", "produced"];
+    let applicationEndWordBank = ["approved", "approval", "processed", "produced", "created", "produce"];
     keyWordLoop: for (let keyword of applicationEndWordBank) {
       let keywordIndex = submissionObject.text.indexOf(keyword);
       if (keywordIndex != -1) {
@@ -139,21 +160,23 @@ let processSubmissions = async () => {
         let chronoPreResult = chrono.strict.parse(preKeywordSlice, submissionObject.submissionData.postedDate);
         let chronoPostResult = chrono.strict.parse(postKeywordSlice, submissionObject.submissionData.postedDate);
         let dateToUse;
+
         if (chronoPreResult.length != 0 && chronoPostResult.length != 0) {
+          chronoPreResult = [chronoPreResult[chronoPreResult.length - 1]];
           //check if there is a \n or . between keyword and date
+          //if another keyword matches, use the date it gets if index is bigger
           let usePreDate = true;
-          for (let beginningIndex = chronoPreResult[0].index; beginningIndex < keywordIndex; beginningIndex++) {
+          for (
+            let beginningIndex = chronoPreResult[0].index;
+            beginningIndex < preKeywordSlice.length;
+            beginningIndex++
+          ) {
             if (preKeywordSlice[beginningIndex] == "\n" || preKeywordSlice[beginningIndex] == ".") {
-              let temp = preKeywordSlice.slice(beginningIndex + 1);
-              chronoPreResult = chrono.strict.parse(temp, submissionObject.submissionData.postedDate);
-              if (chronoPreResult.length == 0) {
-                usePreDate = false;
-                break;
-              }
+              usePreDate = false;
             }
           }
           let usePostDate = true;
-          for (let beginningIndex = keywordIndex; beginningIndex < chronoPostResult[0].index; beginningIndex++) {
+          for (let beginningIndex = 0; beginningIndex < chronoPostResult[0].index; beginningIndex++) {
             if (postKeywordSlice[beginningIndex] == "\n" || postKeywordSlice[beginningIndex] == ".") {
               usePostDate = false;
             }
@@ -172,6 +195,9 @@ let processSubmissions = async () => {
           } else {
             continue;
           }
+          if (dateToUse[0].index - keywordIndex > 25) {
+            continue;
+          }
           if (submissionObject.approvedIndex == -1) {
             submissionObject.approvedIndex = keywordIndex;
             submissionObject.approvedDate = dateToUse[0].start.date();
@@ -179,33 +205,35 @@ let processSubmissions = async () => {
             submissionObject.approvedIndex = keywordIndex;
             submissionObject.approvedDate = dateToUse[0].start.date();
           }
-          if (dateToUse[0].index - keywordIndex > 25) {
-            submissionObject.approvedDate = "";
-            submissionObject.approvedIndex = -1;
-          }
         } else if (chronoPreResult.length == 0 && chronoPostResult.length == 0) {
           continue;
         } else if (chronoPreResult.length != 0) {
+          chronoPreResult = [chronoPreResult[chronoPreResult.length - 1]];
           for (let beginningIndex = chronoPreResult[0].index; beginningIndex < keywordIndex; beginningIndex++) {
             if (preKeywordSlice[beginningIndex] == "\n" || preKeywordSlice[beginningIndex] == ".") {
               continue keyWordLoop;
             }
-            //make it so that it splices and has at least one date
           }
           dateToUse = chronoPreResult;
+          if (dateToUse[0].index - keywordIndex > 25) {
+            continue;
+          }
           if (submissionObject.approvedIndex == -1) {
             submissionObject.approvedIndex = keywordIndex;
             submissionObject.approvedDate = dateToUse[0].start.date();
-          } else if (submissionObject.approvedIndex < keywordIndex && !dateToUse[0].index - keywordIndex > 25) {
+          } else if (submissionObject.approvedIndex < keywordIndex) {
             submissionObject.approvedIndex = keywordIndex;
             submissionObject.approvedDate = dateToUse[0].start.date();
           }
         } else if (chronoPostResult.length != 0) {
           dateToUse = chronoPostResult;
+          if (dateToUse[0].index - keywordIndex > 25) {
+            continue;
+          }
           if (submissionObject.approvedIndex == -1) {
             submissionObject.approvedIndex = keywordIndex;
             submissionObject.approvedDate = dateToUse[0].start.date();
-          } else if (submissionObject.approvedIndex < keywordIndex && !dateToUse[0].index - keywordIndex > 25) {
+          } else if (submissionObject.approvedIndex < keywordIndex) {
             submissionObject.approvedIndex = keywordIndex;
             submissionObject.approvedDate = dateToUse[0].start.date();
           }
@@ -230,8 +258,8 @@ let processSubmissions = async () => {
       submissionObject.approvedDate = "";
       return submissionObject;
     } else {
-      extractInitialDate(submissionObject);
       extractCompletionDate(submissionObject);
+      extractInitialDate(submissionObject);
     }
     return submissionObject;
   };
@@ -248,7 +276,8 @@ let processSubmissions = async () => {
       if (
         placeHolder.initialDate != "" &&
         placeHolder.approvedDate != "" &&
-        placeHolder.initialDate.getTime() != placeHolder.approvedDate.getTime()
+        placeHolder.initialDate.getTime() != placeHolder.approvedDate.getTime() &&
+        placeHolder.initialDate.getTime() < placeHolder.approvedDate.getTime()
       ) {
         advancedParoleSubmissions.push(placeHolder);
       }
@@ -257,7 +286,8 @@ let processSubmissions = async () => {
       if (
         placeHolder.initialDate != "" &&
         placeHolder.approvedDate != "" &&
-        placeHolder.initialDate.getTime() != placeHolder.approvedDate.getTime()
+        placeHolder.initialDate.getTime() != placeHolder.approvedDate.getTime() &&
+        placeHolder.initialDate.getTime() < placeHolder.approvedDate.getTime()
       ) {
         renewalSubmission.push(placeHolder);
       }
