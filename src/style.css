@@ -1,0 +1,140 @@
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  font-family: arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.initialApplicantAlert {
+  font-size: 13px;
+  width: 90%;
+  height: 10%;
+  background-color: rgb(200, 231, 241);
+  padding: 12px;
+  margin: 15px;
+  margin-left: 27px;
+  border-left: 12px solid red;
+}
+
+.informationLinks {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.averageDropDownMenuContainer {
+  position: relative;
+}
+
+.averageDropDownMenu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  visibility: hidden;
+  box-shadow: 0px 6px 8px 1px rgba(0, 0, 0, 0.39);
+  opacity: 0;
+  -webkit-transition: all 0.6s ease-in-out 0.15s;
+  -moz-transition: all 0.6s ease-in-out 0.15s;
+  -o-transition: all 0.6s ease-in-out 0.15s;
+  -ms-transition: all 0.6s ease-in-out 0.15s;
+  transition: all 0.6s ease-in-out 0.15s;
+  z-index: 5;
+}
+
+.averageRenewalTime:hover + .averageDropDownMenu,
+.averageDropDownMenu:hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+.oneMonthButton,
+.sixMonthButton,
+.twelveMonthButton {
+  font-size: 15px;
+  min-width: 130px;
+  min-height: 40px;
+  border: none;
+}
+
+.oneMonthButton:hover,
+.sixMonthButton:hover,
+.twelveMonthButton:hover {
+  background-color: #ddd;
+}
+
+.header {
+  width: 100%;
+  padding: 4px;
+  padding-left: 40px;
+  text-align: left;
+  color: white;
+  background-color: #504e9e;
+  font-size: 35px;
+  border-bottom: 5px solid red;
+}
+
+.informationContainer {
+  position: relative;
+  margin-top: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.dataDisclaimer {
+  margin-top: 30px;
+  font-size: 18px;
+  color: rgba(29, 29, 29, 0.774);
+}
+
+.latestRenewalTime,
+.averageRenewalTime,
+.allRenewalTime {
+  border: none;
+  background-color: white;
+  color: lightslategrey;
+  font-size: 16px;
+}
+
+.latestRenewalTime:hover,
+.averageRenewalTime:hover,
+.allRenewalTime:hover {
+  color: #4e639e;
+}
+
+.latestRenewalBox,
+.averageRenewalBox,
+.allRenewalBox {
+  color: #272561;
+}
+
+.latestRenewalDays,
+.averageRenewalDays {
+  font-weight: 900;
+  padding: 5px;
+}
+
+.latestRenewalDetail {
+  min-width: 80vw;
+  font-size: 20px;
+  padding: 5px;
+}
+
+.latestRenewalLink,
+.averageRenewalLink {
+  font-size: 20px;
+}
+
+.averageRenewalMonths {
+  min-width: 80vw;
+}
+
+.averageRenewalDetail {
+  font-size: 20px;
+  padding: 5px;
+}
