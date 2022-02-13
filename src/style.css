@@ -9,13 +9,19 @@ body {
   align-items: center;
 }
 
+.mainBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .initialApplicantAlert {
   font-size: 13px;
-  width: 90%;
+  width: 60%;
   height: 10%;
   background-color: rgb(200, 231, 241);
   padding: 12px;
-  margin: 15px;
+  margin: 15px 15px 6px 15px;
   margin-left: 27px;
   border-left: 12px solid red;
 }
@@ -87,9 +93,9 @@ body {
 }
 
 .dataDisclaimer {
-  margin-top: 30px;
   font-size: 18px;
   color: rgba(29, 29, 29, 0.774);
+  margin-bottom: 30px;
 }
 
 .latestRenewalTime,
@@ -104,7 +110,7 @@ body {
 .latestRenewalTime:hover,
 .averageRenewalTime:hover,
 .allRenewalTime:hover {
-  color: #4e639e;
+  color: #2f3077;
 }
 
 .latestRenewalBox,
@@ -132,6 +138,11 @@ body {
 
 .averageRenewalMonths {
   min-width: 80vw;
+}
+
+.latestRenewalLength,
+.averageRenewalMonths {
+  font-size: 20px;
 }
 
 .averageRenewalDetail {

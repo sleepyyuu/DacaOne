@@ -8,7 +8,7 @@ let initialSetup = async function () {
     latestRenewalBox.classList.add("latestRenewalBox");
     let latestRenewalLength = document.createElement("div");
     latestRenewalLength.classList.add("latestRenewalLength");
-    latestRenewalLength.textContent = "the latest renewal took";
+    latestRenewalLength.textContent = "The latest renewal took";
     let latestRenewalDays = document.createElement("div");
     latestRenewalDays.classList.add("latestRenewalDays");
     let latestRenewalApproved = document.createElement("div");
@@ -140,6 +140,7 @@ let initialSetup = async function () {
     latestRenewalLinkElement.target = "_blank";
     domSelectors.latestRenewalLink.appendChild(latestRenewalLinkElement);
     domSelectors.latestRenewalBox.appendChild(domSelectors.latestRenewalLength);
+    domSelectors.latestRenewalBox.appendChild(domSelectors.latestRenewalDays);
     domSelectors.latestRenewalBox.appendChild(domSelectors.latestRenewalApproved);
     domSelectors.latestRenewalBox.appendChild(domSelectors.latestRenewalLink);
     domSelectors.informationContainer.appendChild(domSelectors.latestRenewalBox);
@@ -149,7 +150,7 @@ let initialSetup = async function () {
     let setAverageRenewalDom = (month, average, counter, monthArray) => {
       domSelectors.averageRenewalBox = document.createElement("div");
       domSelectors.averageRenewalBox.classList.add("averageRenewalBox");
-      domSelectors.averageRenewalMonth.textContent = "the average renewal in the past " + month + " month took";
+      domSelectors.averageRenewalMonth.textContent = "The average renewal in the past " + month + " month took";
       domSelectors.averageRenewalDays.textContent = average + " days";
       domSelectors.averageRenewalDetails.textContent = "Pulled from " + counter + " data points";
       domSelectors.averageRenewalBox.appendChild(domSelectors.averageRenewalMonth);
