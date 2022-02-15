@@ -32,11 +32,11 @@ let requestData = async function requestData() {
 
   Promise.all([
     await getSubmission(
-      "https://reddit.com/r/DACA/search/.json?sort=new&restrict_sr=on&q=flair%3AApplication%2BTimeline&limit=100",
+      "https://www.reddit.com/r/DACA/search/.json?sort=new&restrict_sr=on&q=flair%3AApplication%2BTimeline&limit=100",
       "Application Timeline"
     ),
     await getSubmission(
-      "https://reddit.com/r/DACA/search/.json?sort=new&restrict_sr=on&q=flair%3AAdvanced%2BParole&limit=100",
+      "https://www.reddit.com/r/DACA/search/.json?sort=new&restrict_sr=on&q=flair%3AAdvanced%2BParole&limit=100",
       "Advanced Parole"
     ),
 
