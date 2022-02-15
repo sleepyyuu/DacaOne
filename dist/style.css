@@ -1,4 +1,5 @@
 body {
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -7,9 +8,25 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgba(211, 211, 211, 0.39);
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+  padding: 2px 22px 6px 22px;
+  border: 2px solid #47446d;
+  border-radius: 0%;
+  color: white;
+  background-color: #47446d;
+}
+
+a:hover {
+  background-color: #2f2d4b;
 }
 
 .mainBody {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,20 +34,25 @@ body {
 
 .initialApplicantAlert {
   font-size: 13px;
-  min-width: 50%;
+  width: 60%;
   height: 10%;
-  background-color: rgb(200, 231, 241);
+  background-color: rgb(197 211 232 / 83%);
   padding: 12px;
-  margin: 15px 15px 6px 15px;
-  margin-left: 27px;
+  margin: 15px 0px 6px 0px;
   border-left: 12px solid red;
+}
+
+@media only screen and (max-width: 500px) {
+  .initialApplicantAlert {
+    width: 80%;
+  }
 }
 
 .informationLinks {
   display: flex;
   justify-content: center;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 13px;
 }
 
 .averageDropDownMenuContainer {
@@ -53,17 +75,11 @@ body {
   z-index: 5;
 }
 
-.averageRenewalTime:hover + .averageDropDownMenu,
-.averageDropDownMenu:hover {
-  opacity: 1;
-  visibility: visible;
-}
-
 .oneMonthButton,
 .sixMonthButton,
 .twelveMonthButton {
   font-size: 15px;
-  min-width: 130px;
+  min-width: 150px;
   min-height: 40px;
   border: none;
 }
@@ -75,13 +91,14 @@ body {
 }
 
 .header {
+  font-family: Didot, serif;
   width: 100%;
-  padding: 4px;
-  padding-left: 40px;
-  text-align: left;
+  text-align: center;
   color: white;
-  background-color: #504e9e;
-  font-size: 35px;
+  line-height: 7vh;
+  height: 7vh;
+  background-color: #47446d;
+  font-size: 22px;
   border-bottom: 5px solid red;
 }
 
@@ -94,45 +111,49 @@ body {
 
 .dataDisclaimer {
   font-size: 18px;
-  color: rgba(29, 29, 29, 0.774);
   margin-bottom: 30px;
+  font-family: "Times New Roman", Times, serif, serif;
 }
 
 .latestRenewalTime,
 .averageRenewalTime,
 .allRenewalTime {
+  font-family: Didot, serif;
   border: none;
-  background-color: white;
-  color: lightslategrey;
-  font-size: 16px;
+  color: rgb(90, 108, 124);
+  font-size: 19px;
+  font-weight: 900;
 }
 
 .latestRenewalTime:hover,
 .averageRenewalTime:hover,
 .allRenewalTime:hover {
-  color: #2f3077;
+  color: #252666;
 }
 
 .latestRenewalBox,
 .averageRenewalBox,
 .allRenewalBox {
-  color: #272561;
+  font-family: "Times New Roman", Times, serif, serif;
 }
 
 .latestRenewalDays,
 .averageRenewalDays,
 .allRenewalDays {
+  color: rgb(62 57 124);
   font-weight: 900;
   padding: 5px;
 }
 
 .latestRenewalDetail {
+  margin-top: 20px;
   min-width: 80vw;
   font-size: 20px;
   padding: 5px;
 }
 
 .latestRenewalLink {
+  margin-top: 10px;
   font-size: 20px;
 }
 
@@ -156,4 +177,41 @@ body {
 .approvalLinkTable {
   margin-left: auto;
   margin-right: auto;
+}
+
+.lds-ring {
+  margin-top: 30px;
+  display: inline-block;
+  position: relative;
+  width: 90px;
+  height: 90px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid rgba(80, 93, 150, 0.801);
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: rgba(80, 93, 150, 0.801) transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

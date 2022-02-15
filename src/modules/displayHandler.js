@@ -3,6 +3,8 @@ import { processSubmissions } from "./apiProcessor.js";
 
 let initialSetup = async function () {
   let domSelectors = (() => {
+    let dataDisclaimer = document.createElement("div");
+    dataDisclaimer.classList.add("dataDisclaimer");
     const informationContainer = document.querySelector(".informationContainer");
     let latestRenewalBox = document.createElement("div");
     latestRenewalBox.classList.add("latestRenewalBox");
@@ -37,7 +39,9 @@ let initialSetup = async function () {
     const twelveMonthButton = document.querySelector(".twelveMonthButton");
     const allRenewalButton = document.querySelector(".allRenewalTime");
     const averageDropDownMenu = document.querySelector(".averageDropDownMenu");
+    const initialApplicantAlert = document.querySelector(".initialApplicantAlert");
     return {
+      dataDisclaimer,
       latestRenewalDays,
       latestRenewalLength,
       latestRenewalApproved,
@@ -59,12 +63,12 @@ let initialSetup = async function () {
       allRenewalLength,
       allRenewalDays,
       allRenewalDetails,
+      initialApplicantAlert,
     };
   })();
   const submissionArray = await processSubmissions();
   const advancedParoleSubmissions = submissionArray[0];
   let renewalSubmission = submissionArray[1];
-  console.log(renewalSubmission);
   let oneMonthArray = [];
   let threeMonthArray = [];
   let sixMonthArray = [];
@@ -141,10 +145,16 @@ let initialSetup = async function () {
   let threeMonthAverage = Math.round(threeMonthSum / threeMonthCounter);
   let sixMonthAverage = Math.round(sixMonthSum / sixMonthCounter);
   let allAverage = Math.round(allSum / allCounter);
+
   let toggleSelectedItem = (currentElement) => {
     domSelectors.informationContainer.removeChild(domSelectors.informationContainer.lastElementChild);
     domSelectors.informationContainer.appendChild(currentElement);
   };
+
+  domSelectors.informationContainer.removeChild(domSelectors.informationContainer.lastElementChild);
+  domSelectors.dataDisclaimer.textContent = "Based on data from Reddit posts,";
+  domSelectors.informationContainer.appendChild(domSelectors.dataDisclaimer);
+
   let latestRenewalTimeSetup = (() => {
     domSelectors.latestRenewalBox = document.createElement("div");
     domSelectors.latestRenewalBox.classList.add("latestRenewalBox");
@@ -152,9 +162,9 @@ let initialSetup = async function () {
     let approvalMoment = moment(latestRenewal.approvedDate);
     domSelectors.latestRenewalDays.textContent = approvalMoment.diff(initialMoment, "days") + " days";
     domSelectors.latestRenewalApproved.textContent =
-      "Card produced/Approved on " + moment(latestRenewal.approvedDate).format("M/D/YY");
+      "Card produced/approved on " + moment(latestRenewal.approvedDate).format("M/D/YY");
     let latestRenewalLinkElement = document.createElement("a");
-    latestRenewalLinkElement.appendChild(document.createTextNode("Reddit post link"));
+    latestRenewalLinkElement.appendChild(document.createTextNode("view post"));
     latestRenewalLinkElement.href = "https://www.reddit.com" + latestRenewal.submissionData.permalink;
     latestRenewalLinkElement.target = "_blank";
     domSelectors.latestRenewalLink.appendChild(latestRenewalLinkElement);
@@ -167,6 +177,8 @@ let initialSetup = async function () {
 
   let averageRenewalTimeSetup = () => {
     let setAverageRenewalDom = (month, average, counter, monthArray) => {
+      domSelectors.averageDropDownMenu.style.visibility = "hidden";
+      domSelectors.averageDropDownMenu.style.opacity = "0";
       domSelectors.averageRenewalBox = document.createElement("div");
       domSelectors.averageRenewalBox.classList.add("averageRenewalBox");
       domSelectors.averageRenewalMonth.textContent = "The average renewal in the past " + month + " month took";
@@ -202,6 +214,18 @@ let initialSetup = async function () {
     toggleSelectedItem(domSelectors.allRenewalBox);
   };
 
+  domSelectors.averageRenewalButton.addEventListener("mouseover", () => {
+    domSelectors.averageDropDownMenu.style.visibility = "visible";
+    domSelectors.averageDropDownMenu.style.opacity = "1";
+  });
+  domSelectors.averageDropDownMenu.addEventListener("mouseleave", () => {
+    domSelectors.averageDropDownMenu.style.visibility = "hidden";
+    domSelectors.averageDropDownMenu.style.opacity = "0";
+  });
+  document.querySelector(".header").addEventListener("mouseover", () => {
+    domSelectors.averageDropDownMenu.style.visibility = "hidden";
+    domSelectors.averageDropDownMenu.style.opacity = "0";
+  });
   domSelectors.latestRenewalButton.addEventListener("click", () => {
     toggleSelectedItem(domSelectors.latestRenewalBox);
   });
