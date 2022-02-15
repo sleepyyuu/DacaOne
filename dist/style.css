@@ -17,7 +17,7 @@ body {
 
 .initialApplicantAlert {
   font-size: 13px;
-  width: 60%;
+  min-width: 50%;
   height: 10%;
   background-color: rgb(200, 231, 241);
   padding: 12px;
@@ -120,7 +120,8 @@ body {
 }
 
 .latestRenewalDays,
-.averageRenewalDays {
+.averageRenewalDays,
+.allRenewalDays {
   font-weight: 900;
   padding: 5px;
 }
@@ -131,21 +132,28 @@ body {
   padding: 5px;
 }
 
-.latestRenewalLink,
-.averageRenewalLink {
+.latestRenewalLink {
   font-size: 20px;
 }
 
-.averageRenewalMonths {
+.averageRenewalMonths,
+.allRenewalLength {
   min-width: 80vw;
 }
 
 .latestRenewalLength,
-.averageRenewalMonths {
+.averageRenewalMonths,
+.allRenewalLength {
   font-size: 20px;
 }
 
-.averageRenewalDetail {
+.averageRenewalDetail,
+.allRenewalDetails {
   font-size: 20px;
   padding: 5px;
+}
+
+.approvalLinkTable {
+  margin-left: auto;
+  margin-right: auto;
 }

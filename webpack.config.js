@@ -22,7 +22,7 @@ const config = {
     rules: [
       {
         test: /\.css$/i,
-        use: [stylesHandler, "css-loader"],
+        use: ["css-loader", stylesHandler],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,

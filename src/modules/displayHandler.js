@@ -15,7 +15,7 @@ let initialSetup = async function () {
     latestRenewalApproved.classList.add("latestRenewalDetail");
     let latestRenewalLink = document.createElement("div");
     latestRenewalLink.classList.add("latestRenewalLink");
-    const allRenewalBox = document.querySelector(".allRenewalBox");
+    const allRenewalBox = document.createElement("div");
     let averageRenewalBox = document.createElement("div");
     averageRenewalBox.classList.add("averageRenewalBox");
     let averageRenewalMonth = document.createElement("div");
@@ -24,8 +24,12 @@ let initialSetup = async function () {
     averageRenewalDays.classList.add("averageRenewalDays");
     let averageRenewalDetails = document.createElement("div");
     averageRenewalDetails.classList.add("averageRenewalDetail");
-    let averageRenewalLink = document.createElement("div");
-    averageRenewalLink.classList.add("averageRenewalLink");
+    let allRenewalLength = document.createElement("div");
+    allRenewalLength.classList.add("allRenewalLength");
+    let allRenewalDays = document.createElement("div");
+    allRenewalDays.classList.add("allRenewalDays");
+    let allRenewalDetails = document.createElement("div");
+    allRenewalDetails.classList.add("allRenewalDetails");
     const latestRenewalButton = document.querySelector(".latestRenewalTime");
     const averageRenewalButton = document.querySelector(".averageRenewalTime");
     const oneMonthButton = document.querySelector(".oneMonthButton");
@@ -41,7 +45,6 @@ let initialSetup = async function () {
       averageRenewalMonth,
       averageRenewalDays,
       averageRenewalDetails,
-      averageRenewalLink,
       latestRenewalButton,
       averageRenewalButton,
       oneMonthButton,
@@ -53,11 +56,15 @@ let initialSetup = async function () {
       averageRenewalBox,
       allRenewalBox,
       informationContainer,
+      allRenewalLength,
+      allRenewalDays,
+      allRenewalDetails,
     };
   })();
   const submissionArray = await processSubmissions();
   const advancedParoleSubmissions = submissionArray[0];
-  const renewalSubmission = submissionArray[1];
+  let renewalSubmission = submissionArray[1];
+  console.log(renewalSubmission);
   let oneMonthArray = [];
   let threeMonthArray = [];
   let sixMonthArray = [];
@@ -68,6 +75,8 @@ let initialSetup = async function () {
   let threeMonthCounter = 0;
   let sixMonthSum = 0;
   let sixMonthCounter = 0;
+  let allSum = 0;
+  let allCounter = renewalSubmission.length;
   let todaysDate = moment();
   for (let submission of renewalSubmission) {
     let initialMoment = moment(submission.initialDate);
@@ -90,29 +99,38 @@ let initialSetup = async function () {
       sixMonthCounter++;
       sixMonthArray.push(submission);
     }
+    allSum += approvalMoment.diff(initialMoment, "days");
   }
+  let compareFunctionDate = (submission1, submission2) => {
+    if (submission1.approvedDate.getTime() < submission2.approvedDate.getTime()) {
+      return 1;
+    }
+    if (submission1.approvedDate.getTime() > submission2.approvedDate.getTime()) {
+      return -1;
+    }
+    return 0;
+  };
+  renewalSubmission.sort(compareFunctionDate);
+  threeMonthArray.sort(compareFunctionDate);
+  sixMonthArray.sort(compareFunctionDate);
   let displaySubmissionTable = (submissionArray, appendingElement) => {
     let tableElement = document.createElement("table");
-
+    tableElement.classList.add("approvalLinkTable");
     for (let submission of submissionArray) {
       let row = document.createElement("tr");
       let initialDate = moment(submission.initialDate).format("M/D/YY");
       let approvedDate = moment(submission.approvedDate).format("M/D/YY");
       let bodyText = submission.text;
-
       let approve = document.createElement("td");
       let approveNode = document.createTextNode(approvedDate);
       approve.appendChild(approveNode);
-
       let body = document.createElement("td");
       let bodyNode = document.createTextNode(bodyText);
       body.appendChild(bodyNode);
-
       let linkElement = document.createElement("a");
       linkElement.appendChild(document.createTextNode("Reddit post link"));
-      linkElement.href = "https://www.reddit.com/" + submission.submissionData.permalink;
+      linkElement.href = "https://www.reddit.com" + submission.submissionData.permalink;
       linkElement.target = "_blank";
-
       row.appendChild(approve);
       row.appendChild(linkElement);
       tableElement.appendChild(row);
@@ -122,6 +140,7 @@ let initialSetup = async function () {
   let oneMonthAverage = Math.round(oneMonthSum / oneMonthCounter);
   let threeMonthAverage = Math.round(threeMonthSum / threeMonthCounter);
   let sixMonthAverage = Math.round(sixMonthSum / sixMonthCounter);
+  let allAverage = Math.round(allSum / allCounter);
   let toggleSelectedItem = (currentElement) => {
     domSelectors.informationContainer.removeChild(domSelectors.informationContainer.lastElementChild);
     domSelectors.informationContainer.appendChild(currentElement);
@@ -136,7 +155,7 @@ let initialSetup = async function () {
       "Card produced/Approved on " + moment(latestRenewal.approvedDate).format("M/D/YY");
     let latestRenewalLinkElement = document.createElement("a");
     latestRenewalLinkElement.appendChild(document.createTextNode("Reddit post link"));
-    latestRenewalLinkElement.href = "https://www.reddit.com/" + latestRenewal.submissionData.permalink;
+    latestRenewalLinkElement.href = "https://www.reddit.com" + latestRenewal.submissionData.permalink;
     latestRenewalLinkElement.target = "_blank";
     domSelectors.latestRenewalLink.appendChild(latestRenewalLinkElement);
     domSelectors.latestRenewalBox.appendChild(domSelectors.latestRenewalLength);
@@ -156,7 +175,6 @@ let initialSetup = async function () {
       domSelectors.averageRenewalBox.appendChild(domSelectors.averageRenewalMonth);
       domSelectors.averageRenewalBox.appendChild(domSelectors.averageRenewalDays);
       domSelectors.averageRenewalBox.appendChild(domSelectors.averageRenewalDetails);
-      domSelectors.averageRenewalBox.appendChild(domSelectors.averageRenewalLink);
       displaySubmissionTable(monthArray, domSelectors.averageRenewalBox);
       toggleSelectedItem(domSelectors.averageRenewalBox);
     };
@@ -171,10 +189,26 @@ let initialSetup = async function () {
     });
   };
 
+  let allRenewalTimeSetup = () => {
+    domSelectors.allRenewalBox = document.createElement("div");
+    domSelectors.allRenewalBox.classList.add("allRenewalBox");
+    domSelectors.allRenewalLength.textContent = "The average renewal from ALL obtainable reddit submissions took";
+    domSelectors.allRenewalDays.textContent = allAverage + " days";
+    domSelectors.allRenewalDetails.textContent = "Pulled from " + allCounter + " data points";
+    domSelectors.allRenewalBox.appendChild(domSelectors.allRenewalLength);
+    domSelectors.allRenewalBox.appendChild(domSelectors.allRenewalDays);
+    domSelectors.allRenewalBox.appendChild(domSelectors.allRenewalDetails);
+    displaySubmissionTable(renewalSubmission, domSelectors.allRenewalBox);
+    toggleSelectedItem(domSelectors.allRenewalBox);
+  };
+
   domSelectors.latestRenewalButton.addEventListener("click", () => {
     toggleSelectedItem(domSelectors.latestRenewalBox);
   });
   averageRenewalTimeSetup();
+  domSelectors.allRenewalButton.addEventListener("click", () => {
+    allRenewalTimeSetup();
+  });
 };
 
 export { initialSetup };
