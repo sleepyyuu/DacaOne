@@ -239,21 +239,52 @@ let initialSetup = async function () {
     toggleSelectedItem(domSelectors.allRenewalBox);
   };
 
+  let hideDropDownMenu = () => {
+    domSelectors.averageDropDownMenu.style.visibility = "hidden";
+    domSelectors.averageDropDownMenu.style.opacity = "0";
+    console.log(domSelectors.averageDropDownMenu.style.visibility);
+    document.body.removeEventListener("click", hideDropDownMenuWrapper, true);
+  };
+
+  let hideDropDownMenuWrapper = () => {
+    hideDropDownMenu();
+  };
+
   domSelectors.averageRenewalButton.addEventListener("mouseover", () => {
     domSelectors.averageDropDownMenu.style.visibility = "visible";
     domSelectors.averageDropDownMenu.style.opacity = "1";
+    document.body.addEventListener("click", hideDropDownMenuWrapper, true);
   });
   domSelectors.averageDropDownMenu.addEventListener("mouseleave", () => {
     domSelectors.averageDropDownMenu.style.visibility = "hidden";
     domSelectors.averageDropDownMenu.style.opacity = "0";
+    document.body.removeEventListener(
+      "click",
+      () => {
+        hideDropDownMenu;
+      },
+      true
+    );
   });
   document.querySelector(".header").addEventListener("mouseover", () => {
     domSelectors.averageDropDownMenu.style.visibility = "hidden";
     domSelectors.averageDropDownMenu.style.opacity = "0";
+    document.body.removeEventListener(
+      "click",
+      () => {
+        hideDropDownMenu;
+      },
+      true
+    );
   });
   latestRenewalTimeSetup();
   domSelectors.latestRenewalButton.addEventListener("click", () => {
     latestRenewalTimeSetup();
+  });
+  domSelectors.averageRenewalButton.addEventListener("click", () => {
+    domSelectors.averageDropDownMenu.style.visibility = "visible";
+    domSelectors.averageDropDownMenu.style.opacity = "1";
+    document.body.addEventListener("click", hideDropDownMenuWrapper, true);
   });
   averageRenewalTimeSetup();
   domSelectors.allRenewalButton.addEventListener("click", () => {
