@@ -102,8 +102,8 @@ a:hover {
   width: 100%;
   text-align: center;
   color: white;
-  line-height: 7vh;
-  height: 7vh;
+  line-height: 50px;
+  height: 50px;
   background-color: #47446d;
   font-size: 22px;
   border-bottom: 5px solid red;
@@ -111,14 +111,15 @@ a:hover {
 
 @media only screen and (max-width: 500px) {
   .header {
-    line-height: 5vh;
-    height: 5vh;
+    line-height: 40px;
+    height: 40px;
   }
 }
 
 .informationContainer {
   display: flex;
   flex-direction: column;
+  margin-top: 7%;
   width: 60%;
   font-size: 30px;
   text-align: center;
@@ -126,17 +127,27 @@ a:hover {
   justify-content: center;
 }
 
+@media only screen and (max-width: 500px) {
+  .informationContainer {
+    margin-top: 0px;
+  }
+}
+
 .dataDisclaimer,
 .detailDisclaimer {
   color: rgb(28, 28, 80);
   font-weight: bold;
-  margin-top: 15px;
+  margin-top: 20px;
   padding-left: 10px;
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 1px;
   font-family: "Times New Roman", Times, serif, serif;
   text-align: left;
+}
+
+.detailDisclaimer {
+  margin-top: 40px;
 }
 
 @media only screen and (max-width: 500px) {
