@@ -80,6 +80,7 @@ body {
 }
 
 .averageDropDownMenu {
+  background-color: rgb(238, 238, 238);
   min-width: 100%;
   font-size: 0;
   display: flex;
@@ -100,7 +101,6 @@ body {
 .oneMonthButton,
 .sixMonthButton,
 .twelveMonthButton {
-  outline: none;
   background-color: rgb(238, 238, 238);
   font-size: 15px;
   min-height: 40px;
