@@ -15,8 +15,6 @@ a:link,
 a:visited {
   text-decoration: none;
   padding: 2px 22px 6px 22px;
-  border: 2px solid #47446d;
-  border-radius: 0%;
   color: white;
   background-color: #47446d;
 }
@@ -38,21 +36,29 @@ a:hover {
   height: 10%;
   background-color: rgb(197 211 232 / 83%);
   padding: 12px;
-  margin: 15px 0px 6px 0px;
+  margin-top: 8px;
   border-left: 12px solid red;
 }
 
 @media only screen and (max-width: 500px) {
   .initialApplicantAlert {
-    width: 80%;
+    width: 85%;
+    margin-top: 10px;
   }
 }
 
 .informationLinks {
+  width: 50%;
+  gap: 4vw;
   display: flex;
   justify-content: center;
-  text-align: center;
-  padding-top: 13px;
+  margin-top: 8px;
+}
+
+@media only screen and (max-width: 500px) {
+  .informationLinks {
+    width: 85%;
+  }
 }
 
 .averageDropDownMenuContainer {
@@ -92,6 +98,7 @@ a:hover {
 
 .header {
   font-family: Didot, serif;
+  font-weight: bolder;
   width: 100%;
   text-align: center;
   color: white;
@@ -102,17 +109,41 @@ a:hover {
   border-bottom: 5px solid red;
 }
 
-.informationContainer {
-  position: relative;
-  margin-top: 20px;
-  font-size: 30px;
-  text-align: center;
+@media only screen and (max-width: 500px) {
+  .header {
+    line-height: 5vh;
+    height: 5vh;
+  }
 }
 
-.dataDisclaimer {
+.informationContainer {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  font-size: 30px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.dataDisclaimer,
+.detailDisclaimer {
+  color: rgb(28, 28, 80);
+  font-weight: bold;
+  margin-top: 15px;
+  padding-left: 10px;
   font-size: 18px;
-  margin-bottom: 30px;
+  font-weight: bold;
+  margin-bottom: 1px;
   font-family: "Times New Roman", Times, serif, serif;
+  text-align: left;
+}
+
+@media only screen and (max-width: 500px) {
+  .dataDisclaimer,
+  .detailDisclaimer {
+    text-align: center;
+  }
 }
 
 .latestRenewalTime,
@@ -120,9 +151,10 @@ a:hover {
 .allRenewalTime {
   font-family: Didot, serif;
   border: none;
+  background-color: rgba(237, 237, 237, 0.39);
   color: rgb(90, 108, 124);
   font-size: 19px;
-  font-weight: 900;
+  font-weight: bolder;
 }
 
 .latestRenewalTime:hover,
@@ -140,43 +172,95 @@ a:hover {
 .latestRenewalDays,
 .averageRenewalDays,
 .allRenewalDays {
-  color: rgb(62 57 124);
+  color: #000000fc;
   font-weight: 900;
-  padding: 5px;
+  padding-top: 5px;
 }
 
-.latestRenewalDetail {
-  margin-top: 20px;
-  min-width: 80vw;
+.latestRenewalDetail,
+.averageRenewalDetail,
+.allRenewalDetails {
+  border-top: 2px solid rgb(0, 0, 0);
+  border-image: linear-gradient(to right, rgb(105, 105, 105), rgba(235, 233, 233, 0.39)) 3;
+  font-size: 18px;
+  padding: 3px 0 12px 0;
+  min-width: 50vw;
+  max-width: 50vw;
   font-size: 20px;
-  padding: 5px;
+}
+
+@media only screen and (max-width: 500px) {
+  .latestRenewalDetail,
+  .averageRenewalDetail,
+  .allRenewalDetails {
+    min-width: 90vw;
+    max-width: 90vw;
+  }
 }
 
 .latestRenewalLink {
-  margin-top: 10px;
   font-size: 20px;
-}
-
-.averageRenewalMonths,
-.allRenewalLength {
-  min-width: 80vw;
 }
 
 .latestRenewalLength,
 .averageRenewalMonths,
 .allRenewalLength {
-  font-size: 20px;
+  border-top: 2px solid rgb(0, 0, 0);
+  border-image: linear-gradient(to right, rgb(105, 105, 105), rgba(235, 233, 233, 0.39)) 3;
+  font-size: 18px;
+  padding-top: 3px;
+  min-width: 50vw;
+  max-width: 50vw;
 }
 
-.averageRenewalDetail,
-.allRenewalDetails {
-  font-size: 20px;
-  padding: 5px;
+@media only screen and (max-width: 500px) {
+  .latestRenewalLength,
+  .averageRenewalMonths,
+  .allRenewalLength {
+    height: 10vw;
+    min-width: 90vw;
+    max-width: 90vw;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .latestRenewalLength {
+    height: 10vw;
+    line-height: 10vw;
+  }
 }
 
 .approvalLinkTable {
+  border: 1px solid #ddd;
   margin-left: auto;
   margin-right: auto;
+  font-size: 20px;
+  border-collapse: collapse;
+}
+
+.approvalLinkTable th {
+  font-size: 20px;
+  padding: 3px 16px 3px 16px;
+  background-color: #47446d;
+  font-family: Didot, serif;
+  color: white;
+}
+
+.approvalLinkTable th,
+.approvalLinkTable td {
+  border: 1px solid #ddd;
+}
+
+.approvalLinkTable a:link,
+.approvalLinkTable a:visited {
+  padding: 2px 14px 4px 14px;
+  white-space: nowrap;
+  color: black;
+  background-color: rgba(237, 237, 237, 0.39);
+}
+
+.approvalLinkTable a:hover {
+  background-color: rgba(151, 151, 151, 0.39);
 }
 
 .lds-ring {

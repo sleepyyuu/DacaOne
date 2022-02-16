@@ -52,9 +52,9 @@ let requestData = async function requestData() {
       "Advanced Parole"
     ),
 
-    await getComments(
-      "https://api.pushshift.io/reddit/search/comment/?q=approved&subreddit=DACA&after=365d&limit=100&sort=desc&sort_type=created_utc"
-    ),
+    //await getComments(
+    // "https://api.pushshift.io/reddit/search/comment/?q=approved&subreddit=DACA&after=365d&limit=100&sort=desc&sort_type=created_utc"
+    //),
   ]);
 
   while (renewalArray.length == 100) {
