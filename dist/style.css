@@ -11,8 +11,8 @@ body {
   background-color: rgba(211, 211, 211, 0.39);
 }
 
-a:link,
-a:visited {
+.latestRenewalBox a:link,
+.latestRenewalBox a:visited {
   text-decoration: none;
   padding: 2px 22px 6px 22px;
   color: white;
@@ -30,21 +30,35 @@ a:hover {
   align-items: center;
 }
 
-.initialApplicantAlert {
-  font-size: 13px;
-  width: 60%;
-  height: 10%;
-  background-color: rgb(197 211 232 / 83%);
-  padding: 12px;
-  margin-top: 8px;
-  border-left: 12px solid red;
+.alertContainer {
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  height: 25vh;
+  justify-content: space-evenly;
 }
 
 @media only screen and (max-width: 500px) {
-  .initialApplicantAlert {
-    width: 85%;
-    margin-top: 10px;
+  .alertContainer {
+    width: 95%;
+    margin-top: 5px;
+    height: 16vh;
+    gap: 6px;
   }
+}
+
+.initialApplicantAlert {
+  font-size: 13px;
+  background-color: rgb(197 211 232 / 83%);
+  padding: 12px;
+  border-left: 12px solid red;
+}
+
+.officialUscisAlert {
+  font-size: 13px;
+  background-color: rgb(197 211 232 / 83%);
+  padding: 12px;
+  border-left: 12px solid green;
 }
 
 .informationLinks {
@@ -119,7 +133,7 @@ a:hover {
 .informationContainer {
   display: flex;
   flex-direction: column;
-  margin-top: 7%;
+  margin-top: 3%;
   width: 60%;
   font-size: 30px;
   text-align: center;
@@ -264,10 +278,10 @@ a:hover {
 
 .approvalLinkTable a:link,
 .approvalLinkTable a:visited {
+  text-decoration: none;
   padding: 2px 14px 4px 14px;
   white-space: nowrap;
   color: black;
-  background-color: rgba(237, 237, 237, 0.39);
 }
 
 .approvalLinkTable a:hover {
