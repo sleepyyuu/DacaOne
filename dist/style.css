@@ -17,7 +17,6 @@ body {
   padding: 2px 22px 6px 22px;
   color: white;
   background-color: #47446d;
-  border: 1px #47446d none;
   border-radius: 8px;
 }
 
@@ -100,9 +99,10 @@ body {
 .oneMonthButton,
 .sixMonthButton,
 .twelveMonthButton {
+  background-color: rgb(238, 238, 238);
   font-size: 15px;
-  min-height: 50px;
-  border: none;
+  min-height: 40px;
+  border: 2px rgb(238, 238, 238) solid;
 }
 
 .oneMonthButton:hover,
