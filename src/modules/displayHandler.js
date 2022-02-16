@@ -255,28 +255,10 @@ let initialSetup = async function () {
     domSelectors.averageDropDownMenu.style.opacity = "1";
     document.body.addEventListener("click", hideDropDownMenuWrapper, true);
   });
-  domSelectors.averageDropDownMenu.addEventListener("mouseleave", () => {
-    domSelectors.averageDropDownMenu.style.visibility = "hidden";
-    domSelectors.averageDropDownMenu.style.opacity = "0";
-    document.body.removeEventListener(
-      "click",
-      () => {
-        hideDropDownMenu;
-      },
-      true
-    );
-  });
-  document.querySelector(".header").addEventListener("mouseover", () => {
-    domSelectors.averageDropDownMenu.style.visibility = "hidden";
-    domSelectors.averageDropDownMenu.style.opacity = "0";
-    document.body.removeEventListener(
-      "click",
-      () => {
-        hideDropDownMenu;
-      },
-      true
-    );
-  });
+  domSelectors.averageDropDownMenu.addEventListener("mouseleave", hideDropDownMenuWrapper);
+  document.querySelector(".header").addEventListener("mouseover", hideDropDownMenuWrapper);
+  domSelectors.latestRenewalButton.addEventListener("mouseover", hideDropDownMenuWrapper);
+  domSelectors.allRenewalButton.addEventListener("mouseover", hideDropDownMenuWrapper);
   latestRenewalTimeSetup();
   domSelectors.latestRenewalButton.addEventListener("click", () => {
     latestRenewalTimeSetup();
