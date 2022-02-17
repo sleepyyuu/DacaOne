@@ -116,9 +116,6 @@ let initialSetup = async function () {
     let approvalMoment = moment(submission.approvedDate);
     let dateStaleness = todaysDate.diff(approvalMoment, "days");
     submission.processingTime = approvalMoment.diff(initialMoment, "days");
-    if (submission.approvedDate.getTime() > latestRenewal) {
-      latestRenewal = submission;
-    }
     if (dateStaleness < 31) {
       oneMonthSum += approvalMoment.diff(initialMoment, "days");
       oneMonthCounter++;
@@ -146,8 +143,10 @@ let initialSetup = async function () {
     return 0;
   };
   renewalSubmission.sort(compareFunctionDate);
+  oneMonthArray.sort(compareFunctionDate);
   threeMonthArray.sort(compareFunctionDate);
   sixMonthArray.sort(compareFunctionDate);
+  latestRenewal = oneMonthArray[0];
   let displaySubmissionTable = (submissionArray, appendingElement) => {
     let tableElement = document.createElement("table");
     tableElement.classList.add("approvalLinkTable");
@@ -162,7 +161,6 @@ let initialSetup = async function () {
     headerRow.appendChild(headerApproved);
     headerRow.appendChild(headerLink);
     tableElement.appendChild(headerRow);
-
     for (let submission of submissionArray) {
       let row = document.createElement("tr");
       let approvedDate = moment(submission.approvedDate).format("M/D/YY");
@@ -193,8 +191,6 @@ let initialSetup = async function () {
     domSelectors.informationContainer.appendChild(currentElement);
   };
 
-  domSelectors.informationContainer.removeChild(domSelectors.informationContainer.lastElementChild);
-  domSelectors.informationContainer.appendChild(domSelectors.latestRenewalBox);
   let latestRenewalTimeSetup = () => {
     domSelectors.latestRenewalBox = document.createElement("div");
     domSelectors.latestRenewalBox.classList.add("latestRenewalBox");
@@ -285,6 +281,9 @@ let initialSetup = async function () {
   domSelectors.latestRenewalButton.addEventListener("mouseover", hideDropDownMenuWrapper);
   domSelectors.allRenewalButton.addEventListener("mouseover", hideDropDownMenuWrapper);
   latestRenewalTimeSetup();
+  document.querySelector(".headerText").addEventListener("click", () => {
+    latestRenewalTimeSetup();
+  });
   domSelectors.latestRenewalButton.addEventListener("click", () => {
     latestRenewalTimeSetup();
   });

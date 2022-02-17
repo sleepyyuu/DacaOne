@@ -5,25 +5,34 @@ let requestData = async function requestData() {
   let lastAdvancedParoleObject;
   //utilize flair to make sure no duplicates in array
   let getSubmission = async function (url, flair) {
-    let response = await fetch(url, {
-      mode: "cors",
-    });
-    response = await response.json();
-    response = response.data.children;
-    for (let submission of response) {
-      if (submission.data.link_flair_text == flair) {
-        submission.data.postedDate = new Date(1000 * submission.data.created_utc);
-        responseArray.push(submission.data);
+    try {
+      let response = await fetch(url, {
+        mode: "cors",
+      });
+      response = await response.json();
+      response = response.data.children;
+      for (let submission of response) {
+        if (submission.data.link_flair_text == flair) {
+          submission.data.postedDate = new Date(1000 * submission.data.created_utc);
+          responseArray.push(submission.data);
+        }
+        if (flair == "Application Timeline") {
+          renewalArray.push(submission.data);
+        }
       }
       if (flair == "Application Timeline") {
-        renewalArray.push(submission.data);
+        lastRenewalObject = response[response.length - 1].data;
       }
-    }
-    if (flair == "Application Timeline") {
-      lastRenewalObject = response[response.length - 1].data;
-    }
-    if (flair == "Advanced Parole") {
-      lastAdvancedParoleObject = response[response.length - 1].data;
+      if (flair == "Advanced Parole") {
+        lastAdvancedParoleObject = response[response.length - 1].data;
+      }
+    } catch (error) {
+      let informationContainer = document.querySelector(".informationContainer");
+      informationContainer.removeChild(informationContainer.lastElementChild);
+      let errorBlock = document.createElement("div");
+      errorBlock.classList.add("errorBlock");
+      errorBlock.textContent = "Please refresh, error contacting Reddit";
+      informationContainer.appendChild(errorBlock);
     }
   };
 
