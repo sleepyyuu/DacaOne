@@ -53,7 +53,7 @@ let initialSetup = async function () {
       let questionBody = document.createElement("div");
       questionBody.classList.add("questionBody");
       questionBody.textContent =
-        "With the importance of making informed decisions regarding form I-821D and I-765 renewals, this site was created in hopes of presenting information regarding renewals in a more accessible manner. The official USCIS case processing time, while helpful, are incredibly broad. Many times, I found myself needing to look up and compare my case times to that of other DACA recipients to make sure my case was still within the acceptable limits of processing time or to make decisions on when to send my renewal.\nThis site parses submissions from Reddit and processes posts that have usable information regarding application timelines.";
+        "With the importance of making informed decisions regarding form I-821D and I-765 renewals, this site was created in hopes of presenting information regarding renewals in a more accessible manner. The official USCIS case processing times, while helpful, is incredibly broad. Many times, I found myself needing to look up and compare case times to that of other DACA recipients to make sure my case was still within the acceptable limits of processing time or to make a decision on when to send my renewal.\nThis site parses submissions from Reddit and processes posts that have usable information regarding application timelines.";
       let contactHeader = document.createElement("div");
       contactHeader.classList.add("contactHeader");
       contactHeader.textContent = "Contact information";
