@@ -4,7 +4,7 @@ body {
   padding: 0;
   min-height: 100vh;
   width: 100%;
-  font-family: arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,17 +33,17 @@ body {
 
 .alertContainer {
   font-size: 13px;
-  margin-top: 4px;
+  margin-top: 2%;
   display: flex;
   width: 65%;
   flex-direction: column;
-  gap: 2vh;
+  gap: 3vh;
 }
 
 @media only screen and (max-width: 500px) {
   .alertContainer {
     width: 95%;
-    margin-top: 5px;
+    margin-top: 3%;
     height: 16vh;
     gap: 10px;
   }
@@ -66,12 +66,13 @@ body {
   gap: 4vw;
   display: flex;
   justify-content: center;
-  margin-top: 8px;
+  margin-top: 15px;
 }
 
 @media only screen and (max-width: 500px) {
   .informationLinks {
     width: 85%;
+    margin-top: 10px;
   }
 }
 
@@ -110,11 +111,10 @@ body {
 .oneMonthButton:hover,
 .sixMonthButton:hover,
 .twelveMonthButton:hover {
-  background-color: #ddd;
+  background-color: #8e97a8;
 }
 
 .header {
-  font-family: Didot, serif;
   font-weight: bolder;
   width: 100%;
   text-align: center;
@@ -160,7 +160,6 @@ body {
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 1px;
-  font-family: "Times New Roman", Times, serif, serif;
   text-align: left;
 }
 
@@ -178,24 +177,20 @@ body {
 .latestRenewalTime,
 .averageRenewalTime,
 .allRenewalTime {
-  font-family: Didot, serif;
   border: none;
-  background-color: rgba(237, 237, 237, 0.39);
-  color: rgb(90, 108, 124);
-  font-size: 19px;
-  font-weight: bolder;
+  background-color: rgb(179, 180, 182);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 5px 14px 5px 14px;
+  border: none;
+  border-radius: 7px;
 }
 
 .latestRenewalTime:hover,
 .averageRenewalTime:hover,
 .allRenewalTime:hover {
-  color: #252666;
-}
-
-.latestRenewalBox,
-.averageRenewalBox,
-.allRenewalBox {
-  font-family: "Times New Roman", Times, serif, serif;
+  background-color: #727d92;
 }
 
 .latestRenewalDays,
@@ -273,7 +268,6 @@ body {
   font-size: 20px;
   padding: 3px 16px 3px 16px;
   background-color: #47446d;
-  font-family: Didot, serif;
   color: white;
 }
 

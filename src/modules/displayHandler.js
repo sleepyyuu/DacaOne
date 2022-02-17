@@ -242,7 +242,6 @@ let initialSetup = async function () {
   let hideDropDownMenu = () => {
     domSelectors.averageDropDownMenu.style.visibility = "hidden";
     domSelectors.averageDropDownMenu.style.opacity = "0";
-    console.log(domSelectors.averageDropDownMenu.style.visibility);
     document.body.removeEventListener("click", hideDropDownMenuWrapper, true);
   };
 
