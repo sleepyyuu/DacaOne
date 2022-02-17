@@ -131,7 +131,7 @@ body {
 .oneMonthButton:hover,
 .sixMonthButton:hover,
 .twelveMonthButton:hover {
-  background-color: #8e97a8;
+  background-color: #7c7ba1;
 }
 
 .header {
@@ -218,12 +218,11 @@ body {
 .averageRenewalTime,
 .allRenewalTime {
   font-family: "Roboto", sans-serif;
-  border: none;
   background-color: #56537a;
   color: white;
   font-size: 17px;
   padding: 5px 14px 5px 14px;
-  border: 3px rgb(53 52 64) solid;
+  border: 1px rgba(237, 237, 237) solid;
   border-radius: 7px;
 }
 
