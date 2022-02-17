@@ -48,7 +48,7 @@ body {
 
 .alertContainer {
   font-size: 13px;
-  margin-top: 2%;
+  margin-top: 1%;
   display: flex;
   width: 65%;
   flex-direction: column;
@@ -167,7 +167,7 @@ body {
 .informationContainer {
   display: flex;
   flex-direction: column;
-  margin-top: 3%;
+  margin-top: 2%;
   width: 60%;
   font-size: 30px;
   padding-bottom: 20px;
@@ -245,8 +245,8 @@ body {
   border-image: linear-gradient(to right, rgb(105, 105, 105), rgba(235, 233, 233, 0.39)) 3;
   font-size: 18px;
   padding: 3px 0 12px 0;
-  min-width: 50vw;
-  max-width: 50vw;
+  min-width: 55vw;
+  max-width: 55vw;
   font-size: 20px;
 }
 
@@ -278,8 +278,8 @@ body {
   border-image: linear-gradient(to right, rgb(105, 105, 105), rgba(235, 233, 233, 0.39)) 3;
   font-size: 18px;
   padding-top: 3px;
-  min-width: 50vw;
-  max-width: 50vw;
+  min-width: 55vw;
+  max-width: 55vw;
 }
 
 @media only screen and (max-width: 500px) {
