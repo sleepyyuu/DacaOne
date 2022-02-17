@@ -340,6 +340,10 @@ body {
   color: black;
 }
 
+.approvalLinkTable a:visited  {
+  background-color: rgba(151, 151, 151, 0.39)
+}
+
 .approvalLinkTable a:hover {
   background-color: rgba(151, 151, 151, 0.39);
 }
