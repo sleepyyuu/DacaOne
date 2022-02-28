@@ -15,6 +15,11 @@ body {
   background-color: rgba(211, 211, 211, 0.39);
 }
 
+h1 {
+  font-size: 13px;
+  margin: 0px;
+}
+
 .errorBlock {
   margin-top: 2%;
   color: red;
@@ -339,8 +344,8 @@ body {
   white-space: nowrap;
 }
 
-.approvalLinkTable a:visited  {
-  background-color: rgba(151, 151, 151, 0.39)
+.approvalLinkTable a:visited {
+  background-color: rgba(151, 151, 151, 0.39);
 }
 
 .approvalLinkTable a:hover {
