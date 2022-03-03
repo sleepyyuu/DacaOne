@@ -189,7 +189,7 @@ h1 {
 
 @media only screen and (max-width: 500px) {
   .informationContainer {
-    margin-top: 15px;
+    margin-top: 15%;
   }
 }
 
